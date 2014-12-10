@@ -28,7 +28,11 @@ FULL_VOLUME = $FF
 org $808129
 	jsr MSU_Main
 
-; Hijack for stop music
+; Hijack for stop music (end of course)
+org $8080C1
+	jsr MSU_Stop
+	
+; Hijack for stop music (demo mode)
 org $808110
 	jsr MSU_Stop
 	
@@ -112,5 +116,5 @@ MSU_Stop:
 	pla
 	plp
 	
-	;jsr $F986
+	jsr $F986
 	rts

@@ -212,6 +212,9 @@ $80/F994 80 F3       BRA $F3    [$F989]      A:0141 X:0000 Y:0000 P:eNVmXdIzc
 $80/F996 28          PLP                     A:0022 X:0000 Y:0000 P:enVmXdIZC
 $80/F997 60          RTS                     A:0022 X:0000 Y:0000 P:enVMXdIzC
 
+$80/80C1 20 86 F9    JSR $F986  [$80:F986]   A:011F X:0000 Y:0000 P:envMXdIzc
+$80/80C4 AE 99 02    LDX $0299  [$80:0299]   A:002C X:0000 Y:0000 P:envMXdIzc
+
 ================================
 ; Bad to the Bone
 $80/FA38 08          PHP                     A:8000 X:0006 Y:0003 P:envMXdIzC
