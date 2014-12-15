@@ -23,6 +23,7 @@ MSU_STATUS_DATA_BUSY     = %10000000
 
 ; Constants
 FULL_VOLUME = $FF
+DUCKED_VOLUME = $30
 
 ; Hijack transfert SPC music after incrementing which song to play
 org $808129
@@ -35,6 +36,9 @@ org $8080C1
 ; Hijack for stop music (demo mode)
 org $808110
 	jsr MSU_Stop
+	
+org $80FA27
+	jsr MSU_Pause
 	
 ; Hack code
 org $80FF27
@@ -95,10 +99,10 @@ MSU_Main:
 
 MSU_Stop:
 	php
-	rep #$30
+	rep #$20
 	pha
 	
-	sep #$30
+	sep #$20
 	; Check if MSU-1 is present
 	lda.w MSU_ID
 	cmp #'S'
@@ -107,14 +111,54 @@ MSU_Stop:
 	lda #$00
 	sta !MSU_AUDIO_CONTROL
 	
-	rep #$30
+	rep #$20
 	pla
 	plp
 	rts
 .MSUNotFound:
-	rep #$30
+	rep #$20
 	pla
 	plp
 	
 	jsr $F986
 	rts
+	
+MSU_Pause:
+	jsl MSU_PauseHandling
+	rts
+	
+org $81FF10
+MSU_PauseHandling:
+	php
+	rep #$20
+	pha
+	
+	sep #$30
+	; Check if MSU-1 is present
+	lda.w MSU_ID
+	cmp #'S'
+	bne .CallOriginalCodeAndExit
+	
+	xba
+	sep #$20
+	cmp #$30
+	bne +
+	
+	; Duck MSU-1 Volume
+	lda.b #DUCKED_VOLUME
+	sta.w !MSU_AUDIO_VOLUME
+	bra .CallOriginalCodeAndExit
++
+	cmp #$B0
+	bne .CallOriginalCodeAndExit
+	
+	; Restore MSU-1 Volume
+	lda.b #FULL_VOLUME
+	sta.w !MSU_AUDIO_VOLUME
+
+.CallOriginalCodeAndExit
+	rep #$20
+	pla
+	sta.w SPC_COMM_2
+	plp
+	rtl

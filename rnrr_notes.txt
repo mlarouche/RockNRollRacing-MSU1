@@ -200,6 +200,8 @@ $80/FB2D 28          PLP                     A:0700 X:079A Y:0004 P:eNvmxdIzC
 $80/FB2E 60          RTS                     A:0700 X:079A Y:0004 P:envMxdIZC
 
 ================================
+= Stop Music Location research =
+================================
 $80/8110 20 86 F9    JSR $F986  [$80:F986]   A:0122 X:0000 Y:0000 P:enVMXdIzC
 
 $80/F986 08          PHP                     A:0122 X:0000 Y:0000 P:enVMXdIzC
@@ -215,7 +217,24 @@ $80/F997 60          RTS                     A:0022 X:0000 Y:0000 P:enVMXdIzC
 $80/80C1 20 86 F9    JSR $F986  [$80:F986]   A:011F X:0000 Y:0000 P:envMXdIzc
 $80/80C4 AE 99 02    LDX $0299  [$80:0299]   A:002C X:0000 Y:0000 P:envMXdIzc
 
-================================
+=====================================
+= Duck volume during pause research =
+=====================================
+; Pause the game
+$80/FA27 8D 42 21    STA $2142  [$80:2142]   A:3087 X:0002 Y:00FE P:envmXdizc
+$80/FA27 8D 42 21    STA $2142  [$80:2142]   A:0242 X:0003 Y:00FE P:envmXdizc
+$80/FA27 8D 42 21    STA $2142  [$80:2142]   A:3047 X:0007 Y:00FE P:envmXdizc
+$80/FA27 8D 42 21    STA $2142  [$80:2142]   A:0282 X:0008 Y:00FE P:envmXdizc
+
+; De-paused the game
+$80/FA27 8D 42 21    STA $2142  [$80:2142]   A:B087 X:0004 Y:00FE P:eNvmXdizc
+$80/FA27 8D 42 21    STA $2142  [$80:2142]   A:0242 X:0005 Y:00FE P:envmXdizc
+$80/FA27 8D 42 21    STA $2142  [$80:2142]   A:B047 X:0009 Y:00FE P:eNvmXdizc
+$80/FA27 8D 42 21    STA $2142  [$80:2142]   A:0282 X:000A Y:00FE P:envmXdizc
+
+==========================
+= Music to play research =
+==========================
 ; Bad to the Bone
 $80/FA38 08          PHP                     A:8000 X:0006 Y:0003 P:envMXdIzC
 $80/FA61 8D 42 21    STA $2142  [$80:2142]   A:0900 X:09A9 Y:0003 P:envMxdiZC
