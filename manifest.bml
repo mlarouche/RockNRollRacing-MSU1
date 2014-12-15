@@ -1,0 +1,17 @@
+unverified
+
+cartridge region=NTSC
+  rom name=rnrr_msu1.sfc size=0x100000
+  map id=rom address=00-7f,80-ff:8000-ffff mask=0x8000
+
+  msu1
+    rom name=rnrr_msu1.msu size=0x0000
+    map id=io address=00-3f,80-bf:2000-2007
+    track number=0 name=rnrr_msu1-0.pcm
+    track number=1 name=rnrr_msu1-1.pcm
+    track number=2 name=rnrr_msu1-2.pcm
+    track number=3 name=rnrr_msu1-3.pcm
+    track number=4 name=rnrr_msu1-4.pcm
+
+information
+  title: rnrr_msu1
